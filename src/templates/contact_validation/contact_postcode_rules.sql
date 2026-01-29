@@ -12,7 +12,7 @@ FROM (
         END AS format_check
     FROM contact
 ) AS format_validation
-UNION
+UNION ALL
 
 --Mandatory Rule
 SELECT 
@@ -29,3 +29,4 @@ FROM (
 	FROM contact
 
 	) as mandatory_validation
+
