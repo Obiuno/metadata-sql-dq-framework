@@ -21,4 +21,5 @@ SELECT
 	'Name length >=100' as [rule],
 	COUNT(CASE WHEN LEN(company_name) <= 100 THEN company_name END) valid,
 	COUNT(CASE WHEN LEN(company_name) > 100 THEN company_name END) invalid
+
 FROM customer
