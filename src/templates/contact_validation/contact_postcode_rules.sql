@@ -1,14 +1,3 @@
-DROP TABLE IF EXISTS contact_postcode_rules
-
-CREATE TABLE contact_postcode_rules(
-    [rule] NVARCHAR(50),
-    valid_count INT,
-    invalid_count INT
-);
-
--- Insert the aggregated data into the new table
-INSERT INTO contact_postcode_rules ([rule], valid_count, invalid_count)
-
 --Format Rule
 SELECT 
     'Post Code Format' AS [rule],
@@ -38,4 +27,5 @@ FROM (
 			 ELSE 'Invalid'
 		END AS mandatory_check
 	FROM contact
+
 	) as mandatory_validation
