@@ -56,13 +56,31 @@ FROM contact;
 
 This query groups the different values in a field and counts the number of occurrences. It then does a count of the fields depending on the number of occurrences i.e. if it appears more than once it will have a cnt \> 1 and therefore is not unique and will be counted through the CASE WHEN.
 
-![][image2]
+```sql
+WITH cnts AS (
+  SELECT contact_id, COUNT(*) AS cnt
+  FROM contact
+  GROUP BY contact_id
+)
+SELECT
+  'Uniqueness' AS rule,
+  SUM(CASE WHEN cnt = 1 THEN 1 ELSE 0 END) AS valid,
+  SUM(CASE WHEN cnt > 1 THEN 1 ELSE 0 END) AS invalid
+FROM cnts;
+
+```
 
 3. **Positive**
 
 This is for a numeric field and makes sure the values are all positive and counts which are and which are not.
 
-![][image3]
+```sql
+SELECT 
+	'Must be positive' as [rule],
+	COUNT(CASE WHEN contact_id > 0 THEN contact_id END) as valid,
+	COUNT(CASE WHEN contact_id <=0 THEN contact_id END) as invalid
+FROM contact
+```
 
 4. **Numeric**
 
